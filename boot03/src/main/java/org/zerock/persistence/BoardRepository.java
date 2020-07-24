@@ -3,8 +3,11 @@ package org.zerock.persistence;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.zerock.domain.Board;
 
 public interface BoardRepository extends CrudRepository<Board, Long> {
@@ -36,6 +39,46 @@ public interface BoardRepository extends CrudRepository<Board, Long> {
 	// 페이징 처리
 	// bno > ? ORDER BY bno DESC limit ?, ?
 	public List<Board> findByBnoGreaterThanOrderByBnoDesc(Long bno, Pageable paging);
+
+	// 정렬 처리
+	// 메소드 이름에서 정렬조건을 빼본뒤, PageRequests() 를 이용해보기.
+	//public List<Board> findByBnoGreaterThan(Long bno, Pageable paging);
+	
+	// Page<T> 리턴
+	public Page<Board> findByBnoGreaterThan(Long bno, Pageable paging);
+	
+	// @Query 사용
+	// 제목에 대한 검색처리
+	@Query("SELECT b FROM Board b WHERE b.title LIKE %?1% AND b.bno > 0 ORDER BY b.bno DESC")
+	public List<Board> findByTitle(String title);
+	
+	// @Param 사용 : 여러개의 파라미터를 JPQL에 전달할때 이름을 이용해서 전달 가능.
+	// 내용에 대한 검색 처리
+	@Query("SELECT b FROM Board b WHERE b.content LIKE %:content% AND b.bno > 0 ORDER BY b.bno DESC")
+	public List<Board> findByContent(@Param("content") String content);
+	
+	// #{#entityName} 사용 : 
+	// 작성자에 대한 검색 처리
+	@Query("SELECT b FROM #{#entityName} b WHERE b.writer LIKE %?1% AND b.bno > 0 ORDER BY b.bno DESC")
+	public List<Board> findByWriter2(String writer);
+	
+	// 필요한 컬럼만 추출하기
+	// 리턴타입이 엔티티타입이 아니라 Object[] 다.
+	@Query("SELECT b.bno, b.title, b.writer, b.regdate "
+			+ " FROM Board b WHERE b.title LIKE %?1% AND b.bno > 0 ORDER BY b.bno DESC")
+	public List<Object[]> findByTitle2(String title);
+	
+	// nativeQuery 사용하기
+	// 실행시 @Query 의 value 값을 그.대.로 실행하게 됨.
+	@Query(value = "SELECT bno, title, writer FROM tbl_boards "
+			+ " WHERE title LIKE CONCAT('%', ?1, '%') AND bno > 0 "
+			+ " ORDER BY bno DESC", nativeQuery = true)
+	public List<Object[]> findByTitle3(String title);
+	
+	// 페이징 처리
+	// @Query + Pageable
+	@Query("SELECT b FROM Board b WHERE b.bno > 0 ORDER By b.bno DESC")
+	public List<Board> findByPage(Pageable pageable);
 	
 }
 

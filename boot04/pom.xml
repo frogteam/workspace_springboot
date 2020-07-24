@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.zerock</groupId>
-	<artifactId>boot03</artifactId>
+	<artifactId>boot04</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>boot03</name>
+	<name>boot04</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -63,23 +63,6 @@
 			</exclusions>
 			 -->
 		</dependency>
-		
-		<!-- Querydsl -->
-		<!-- 
-		<dependency>
-		    <groupId>com.querydsl</groupId>
-		    <artifactId>querydsl-apt</artifactId>
-		    <version>4.2.1</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>com.querydsl</groupId>
-		    <artifactId>querydsl-jpa</artifactId>
-		    <version>4.2.1</version>
-		</dependency>
-		 -->
-		
-		
 	</dependencies>
 
 	<build>
@@ -88,29 +71,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
-			<!-- Querydsl 관련 -->
-			<!-- 
-			<plugin>
-				<groupId>com.mysema.maven</groupId>
-				
-			</plugin>
-			 -->
-			
-			
 		</plugins>
 	</build>
 
 </project>
-
-
-
-
-
-
-
-
-
-
-
-
