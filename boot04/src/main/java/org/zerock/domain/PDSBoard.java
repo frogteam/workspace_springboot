@@ -31,8 +31,8 @@ public class PDSBoard {
 	private String pwriter;
 	
 	
-	@OneToMany
-	//@OneToMany(cascade= CascadeType.ALL) // 영속성 전이 설정
+	//@OneToMany
+	@OneToMany(cascade= CascadeType.ALL) // 영속성 전이 설정
 	@JoinColumn(name="pdsno")  // tbl_pdsfiles 에 컬럼 (외래키) 추가된다.
 	private List<PDSFile> files;
 }
