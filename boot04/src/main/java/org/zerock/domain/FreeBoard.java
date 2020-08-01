@@ -3,6 +3,7 @@ package org.zerock.domain;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "replies")
 @Entity
 @Table(name="tbl_freeboards")
 @EqualsAndHashCode(of="bno")
@@ -37,7 +38,7 @@ public class FreeBoard {
 	private Timestamp updatedate;	
 	
 	// mappedBy 종속적인 클래스의 인스턴스 변수 지정
-	@OneToMany(mappedBy = "board")  
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)  
 	private List<FreeBoardReply> replies;
 }
 

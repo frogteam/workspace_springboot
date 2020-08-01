@@ -18,7 +18,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "board")
 @Entity
 @Table(name="tbl_free_replies")
 @EqualsAndHashCode(of="rno")
