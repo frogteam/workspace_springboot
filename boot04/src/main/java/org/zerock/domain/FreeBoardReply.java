@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -20,7 +21,9 @@ import lombok.ToString;
 @Setter
 @ToString(exclude = "board")
 @Entity
-@Table(name="tbl_free_replies")
+@Table(name="tbl_free_replies", 
+	// 테이블 생성시 인덱스 설계
+	indexes = {@Index(unique = false, columnList = "board_bno")})
 @EqualsAndHashCode(of="rno")
 public class FreeBoardReply {
 	

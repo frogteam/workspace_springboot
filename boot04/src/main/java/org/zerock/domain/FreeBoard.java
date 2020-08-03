@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,8 +39,11 @@ public class FreeBoard {
 	private Timestamp updatedate;	
 	
 	// mappedBy 종속적인 클래스의 인스턴스 변수 지정
-	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)  
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL,
+			//fetch = FetchType.EAGER)  // 즉시로딩
+			fetch = FetchType.LAZY)  // 지연로딩(디폴트)
 	private List<FreeBoardReply> replies;
+	
 }
 
 
