@@ -5,12 +5,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-	<h1 th:text="${vo}">Thymeleaf Test Page</h1>
-	
-	<!-- utext VS. text -->
-	<div th:utext='${"<h3>" + vo.mid + "</h3>"}'></div>
-	<div th:text='${"<h3>" + vo.mid + "</h3>"}'></div>
-	
+
+<script th:inline="javasript">
+var result = [[${result}]];
+</script>
+
+<script>
+var result = [[${result}]];
+</script>
+
 </body>
 </html>
 

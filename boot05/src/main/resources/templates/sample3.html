@@ -1,0 +1,53 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Thymeleaf3</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style>
+table, th, td {
+	border : 1px solid black;
+	border-collapse: collapse;
+}
+</style>
+</head>
+<body>
+	<table>
+	    <tr>
+	      <td>MID</td>
+	      <td>MNAME</td>
+	      <td>REGDATE</td>
+	    </tr>
+	    
+	    <tr th:each="member : ${list}">
+	    	<td th:text="${member.mid}"></td>
+	    	<td th:text="${member.mname}"></td>
+	    	<td th:text="${#dates.format(member.regdate, 'yyyy-MM-dd')}"></td>
+	    </tr>	
+	</table>
+	
+	<hr>
+	<table>
+	    <tr>
+	      <td>INDEX</td>
+	      <td>SIZE</td>
+	      <td>ODD/EVEN</td>
+	      <td>MID</td>
+	      <td>MNAME</td>
+	      <td>REGDATE</td>
+	      
+	    </tr>
+	    <!-- iterState 라는 추가 변수 지정하여 사용 -->
+	    <tr th:each="member, iterState : ${list}">
+	       <td th:text="${iterState.index} "></td>
+	       <td th:text="${iterState.size} "></td>
+	       <td th:text="${iterState.odd +' ' + iterState.even} "></td>
+	       <td th:text="${member.mid} "></td>
+	       <td th:text="${member.mname}">Doe</td>
+	       <td th:text="${#dates.format(member.regdate, 'yyyy-MM-dd')}"></td>
+	     </tr>    
+	</table>
+</body>
+</html>
+
+
+
