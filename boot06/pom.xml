@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.1.RELEASE</version>
+		<version>2.3.3.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.zerock</groupId>
-	<artifactId>boot03</artifactId>
+	<artifactId>boot06</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>boot03</name>
+	<name>boot06</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -23,6 +23,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -64,8 +68,13 @@
 			 -->
 		</dependency>
 		
+		<dependency>
+		    <groupId>nz.net.ultraq.thymeleaf</groupId>
+		    <artifactId>thymeleaf-layout-dialect</artifactId>
+		    <version>2.4.1</version>
+		</dependency>
+		
 		<!-- Querydsl -->
-		<!-- 
 		<dependency>
 		    <groupId>com.querydsl</groupId>
 		    <artifactId>querydsl-apt</artifactId>
@@ -77,9 +86,6 @@
 		    <artifactId>querydsl-jpa</artifactId>
 		    <version>4.2.1</version>
 		</dependency>
-		 -->
-		
-		
 	</dependencies>
 
 	<build>
@@ -90,29 +96,25 @@
 			</plugin>
 			
 			<!-- Querydsl 관련 -->
-			<!-- 
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>apt-maven-plugin</artifactId>
-    			<version>1.1.3</version>
-				
+				<version>1.1.3</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
-			 -->
-			
 			
 		</plugins>
+		
 	</build>
 
 </project>
-
-
-
-
-
-
-
-
-
-
-
-
