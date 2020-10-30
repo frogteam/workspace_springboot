@@ -14,7 +14,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.zerock.domain.Board;
+import org.zerock.domain.QBoard;
 import org.zerock.persistence.BoardRepository;
+
+import com.querydsl.core.BooleanBuilder;
 
 
 @RunWith(SpringRunner.class)
@@ -162,6 +165,49 @@ public class Boot03ApplicationTests {
 		.forEach(board -> System.out.println(board));
 	}
 	
+	
+	// Predicate 생성 및 테스트, querydsl 사용
+	//  - 1. BooleanBuilder 를 생성 (Predicate 생성)
+	//  - 2. 동적쿼리에 필요한 조건을 and() 등을 이용하여 추가.
+	//  - 3. QBoard 의 like(), get() 등을 이용하여 원하는 SQL 구성
+	@Test
+	public void testPredicate() {
+		String type = "t";
+		String keyword = "17";
+		
+		BooleanBuilder builder = new BooleanBuilder();  // com.querydsl.core.BooleanBuilder
+		
+		// QDomain 생성기로 생성된 QBoard
+		//  Board 속성을 이용해서 다양한 SQL 에 필요한 구문을 처리할수 있는 기능들이 추가되어 있다.
+		QBoard board = QBoard.board;  
+		
+		if(type.equals("t")) {
+			builder.and(board.title.like("'%" + keyword + "%'"));
+		}
+		
+		// bno > 0
+		builder.and(board.bno.gt(0L));
+
+		System.out.println("builder: " + builder);  // board.title like '%17%' && board.bno > 0
+		Pageable pageable = PageRequest.of(0,  10);
+		try {			
+			repo.findAll(builder);  // 음 UnsupportedOperationException..
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		//Page<Board> result = repo.findAll(builder,  pageable);  // 음 UnsupportedOperationException..
+		
+
+		//System.out.println("PAGE SIZE: " + result.getSize());
+		
+//		System.out.println("TOTAL PAGES: " + result.getTotalPages());
+//		System.out.println("TOTAL COUNT: " + result.getTotalElements());
+//		System.out.println("NEXT: " + result.nextPageable());
+//		
+//		List<Board> list = result.getContent();
+//		list.forEach(b -> System.out.println(b));
+		
+	} // end testPredicate()	
 	
 }
 
